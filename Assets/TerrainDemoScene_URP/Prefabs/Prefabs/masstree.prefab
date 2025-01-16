@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 95085564227879946}
   - component: {fileID: 1798049801767171856}
   m_Layer: 0
-  m_Name: Tree1(collider)
+  m_Name: masstree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4807327006544470
 Transform:
