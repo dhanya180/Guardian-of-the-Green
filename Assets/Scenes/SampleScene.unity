@@ -196,6 +196,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 46890087}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &46890091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8346,6 +8347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Tree 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1785995689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8984586040812932709, guid: a23a61feebf7b8b44baec4bfd17cac46, type: 3}
@@ -8431,11 +8433,16 @@ MeshRenderer:
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 =======
+=======
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 --- !u!4 &1739579937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4807327006544470, guid: 37fafbb03c8e35043953b84ba8c39664, type: 3}
   m_PrefabInstance: {fileID: 1583938245}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
+=======
 >>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 --- !u!1 &1790115456
 GameObject:
@@ -8954,6 +8961,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830109987}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!114 &1830109991
 MonoBehaviour:
@@ -9666,6 +9674,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: eded051879df4c147b9010199d240258, type: 3}
 --- !u!1 &1908110282
 =======
+=======
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 --- !u!1 &1908110282 stripped
 >>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 GameObject:
@@ -9745,6 +9755,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1e70e5a8fc4cd8140b85bdad32d6772b, type: 2}
+<<<<<<< HEAD
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10123,6 +10134,8 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
+=======
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10958,6 +10971,7 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &2107271689
 GameObject:
   m_ObjectHideFlags: 0
@@ -11048,6 +11062,9 @@ Transform:
 =======
 --- !u!1001 &824557238098665629
 >>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
+=======
+--- !u!1001 &824557238098665629
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11055,6 +11072,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< HEAD
 <<<<<<< HEAD
     - target: {fileID: 8984586040812573253, guid: a23a61feebf7b8b44baec4bfd17cac46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11206,6 +11224,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Axe
 =======
+=======
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
     - target: {fileID: -3003415856512715614, guid: b0a9b32bd39d7e1479e228450c3072db, type: 3}
       propertyPath: m_Material
       value: 
@@ -11253,6 +11273,9 @@ PrefabInstance:
     - target: {fileID: 3612378172897557169, guid: b0a9b32bd39d7e1479e228450c3072db, type: 3}
       propertyPath: m_Name
       value: tree_1
+<<<<<<< HEAD
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
+=======
 >>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11260,7 +11283,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 28174a8af31b5e34eba99832dcf7e302, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: b0a9b32bd39d7e1479e228450c3072db, type: 3}
+>>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
 =======
   m_SourcePrefab: {fileID: 100100000, guid: b0a9b32bd39d7e1479e228450c3072db, type: 3}
 >>>>>>> 9ae728adb4258e587c0706d424317555a41f9a0b
