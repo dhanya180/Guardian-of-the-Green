@@ -109,21 +109,13 @@ public class InteractableObject : MonoBehaviour
         {
             if (hit.transform == transform) // Ensure the ray hits this object
             {
-                //Debug.Log($"Pointer is over {ItemName}");
+                Debug.Log($"Pointer is over {ItemName}");
 
                 // Trigger interaction logic when pointer is over the object
                 if (Input.GetKeyDown(KeyCode.E)) // Example: Press 'E' to interact
                 {
-                    //Debug.Log($"Picked up: {ItemName}");
-                    if (!InventorySystem.Instance.CheckIfFull())
-                    {
-                        InventorySystem.Instance.AddToInventory(ItemName);
-                        Destroy(gameObject); // Destroy the object or handle custom logic
-                    }
-                    else
-                    {
-                        Debug.Log("inventory is full!");
-                    }
+                    Debug.Log($"Picked up: {ItemName}");
+                    Destroy(gameObject); // Destroy the object or handle custom logic
                 }
             }
         }
