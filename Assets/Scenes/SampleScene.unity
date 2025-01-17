@@ -197,6 +197,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
 --- !u!114 &46890091
+=======
+--- !u!1001 &65376556
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
