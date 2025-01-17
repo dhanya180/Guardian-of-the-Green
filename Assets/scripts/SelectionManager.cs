@@ -18,6 +18,7 @@ public class SelectionManager : MonoBehaviour
     public GameObject interaction_Info_UI;
     TextMeshProUGUI interaction_text;
 
+    public GameObject selectedSoil;
     private void Start()
     {
         onTarget = false;
@@ -70,6 +71,13 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
+        // Ensure pointerTransform is assigned
+        if (pointerTransform == null)
+        {
+            Debug.LogError("Pointer Transform is not assigned!");
+            return;
+        }
+
         // Convert pointer position to screen position
         Vector2 pointerScreenPosition = RectTransformUtility.WorldToScreenPoint(null, pointerTransform.position);
 
@@ -81,26 +89,53 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
 
-            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+            // Check if the object has a Soil component
+            Soil soil = selectionTransform.GetComponent<Soil>();
 
-            if (interactable)
+            if (soil != null && soil.playerInRange)
             {
-
                 onTarget = true;
-                interaction_text.text = interactable.GetItemName();
+
+                if (soil.isEmpty)
+                {
+                    interaction_text.text = "Soil";
+                }
+                else
+                {
+                    interaction_text.text = "Name of plant";
+                }
+
                 interaction_Info_UI.SetActive(true);
+                selectedSoil = soil.gameObject;
             }
             else
             {
-                onTarget = false;
-                interaction_Info_UI.SetActive(false);
+                // If not soil, check for other interactable objects
+                InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+
+                if (interactable != null)
+                {
+                    onTarget = true;
+                    interaction_text.text = interactable.GetItemName();
+                    interaction_Info_UI.SetActive(true);
+                }
+                else
+                {
+                    ResetInteraction();
+                }
             }
         }
         else
         {
-            onTarget = false;
-            interaction_Info_UI.SetActive(false);
+            ResetInteraction();
         }
     }
 
+    private void ResetInteraction()
+    {
+        onTarget = false;
+        interaction_Info_UI.SetActive(false);
+        interaction_text.text = "";
+        selectedSoil = null;
+    }
 }
