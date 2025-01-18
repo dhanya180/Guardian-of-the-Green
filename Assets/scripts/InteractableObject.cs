@@ -114,8 +114,18 @@ public class InteractableObject : MonoBehaviour
                 // Trigger interaction logic when pointer is over the object
                 if (Input.GetKeyDown(KeyCode.E)) // Example: Press 'E' to interact
                 {
-                    Debug.Log($"Picked up: {ItemName}");
-                    Destroy(gameObject); // Destroy the object or handle custom logic
+                    //if inventory is NOT full
+                    if (!InventorySystem.Instance.CheckIfFull())
+                    {
+                        InventorySystem.Instance.AddToInventory(ItemName);
+
+                        Debug.Log($"Picked up: {ItemName}");
+                        Destroy(gameObject); // Destroy the object or handle custom logic
+                    }
+                    else
+                    {
+                        Debug.Log("inventory is full");
+                    }
                 }
             }
         }
