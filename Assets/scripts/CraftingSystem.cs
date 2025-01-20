@@ -54,6 +54,7 @@ public class CraftingSystem : MonoBehaviour
     //start is called before the first frame update
     void Start()
     {
+
         isOpen = false;
         toolsBTN = craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
         toolsBTN.onClick.AddListener(delegate { OpenToolsCategory(); });
@@ -78,7 +79,7 @@ public class CraftingSystem : MonoBehaviour
     void Update()
     {
 
-        RefreshNeededItems();
+        //RefreshNeededItems();
 
         if (Input.GetKeyDown(KeyCode.C) && !isOpen)
         {
@@ -86,6 +87,12 @@ public class CraftingSystem : MonoBehaviour
 
             craftingScreenUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            SelectionManager.Instance.DisableSelection();
+            SelectionManager.Instance.GetComponent<SelectionManager>().enabled=false;
+
+
             isOpen = true;
 
         }
@@ -96,6 +103,10 @@ public class CraftingSystem : MonoBehaviour
             if (!InventorySystem.Instance.isOpen)
             { 
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            SelectionManager.Instance.EnableSelection();
+            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
             }
             isOpen = false;
         }
@@ -117,12 +128,26 @@ public class CraftingSystem : MonoBehaviour
         }
 
         //refresh list
-        InventorySystem.Instance.ReCalculateList();
+        StartCoroutine(Calculate());
 
+
+        //RefreshNeededItems();
+    }
+    
+    public IEnumerator Calculate()
+    {
+        yield return 0;
+
+        InventorySystem.Instance.ReCalculateList();
         RefreshNeededItems();
     }
 
-    private void RefreshNeededItems()
+
+
+
+
+
+    public void RefreshNeededItems()
     {
         int stone_count = 0;
         int stick_count = 0;

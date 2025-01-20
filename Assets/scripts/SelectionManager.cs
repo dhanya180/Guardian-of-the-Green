@@ -5,6 +5,7 @@ using UnityEngine;
 //using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
+using Microsoft.Unity.VisualStudio.Editor;
 
 
 public class SelectionManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class SelectionManager : MonoBehaviour
     
     public GameObject interaction_Info_UI;
     TextMeshProUGUI interaction_text;
+
+    public Image centerDotImage;
+    public Image handIcon;
 
     private void Start()
     {
@@ -89,6 +93,14 @@ public class SelectionManager : MonoBehaviour
                 onTarget = true;
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
+                /*if ()
+                {
+
+                }
+                else
+                {
+
+                }*/
             }
             else
             {
@@ -103,4 +115,26 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-}
+    public void DisableSelection()
+    {
+        interaction_Info_UI.SetActive(false);
+        pointerTransform .gameObject.SetActive(false);  
+        //handicon
+        //centerdotImage
+        
+    }
+
+    public void EnableSelection()
+    {
+        interaction_Info_UI.SetActive(true);
+        pointerTransform .gameObject.SetActive(true);
+        //handicon
+        //centerdotImage
+    }
+
+
+
+
+
+
+}   
