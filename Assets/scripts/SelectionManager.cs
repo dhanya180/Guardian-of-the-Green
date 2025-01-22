@@ -22,6 +22,8 @@ public class SelectionManager : MonoBehaviour
     public Image centerDotImage;
     public Image handIcon;
 
+    public bool handIsVisible;
+
     private void Start()
     {
         onTarget = false;
@@ -106,12 +108,14 @@ public class SelectionManager : MonoBehaviour
             {
                 onTarget = false;
                 interaction_Info_UI.SetActive(false);
+                handIsVisible = false;
             }
         }
         else
         {
             onTarget = false;
             interaction_Info_UI.SetActive(false);
+            handIsVisible = false;
         }
     }
 

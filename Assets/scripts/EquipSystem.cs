@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
+using Unity.VisualScripting;
 
 public class EquipSystem : MonoBehaviour
 {
@@ -20,9 +22,9 @@ public class EquipSystem : MonoBehaviour
     public int selectedNumber = -1;
     public GameObject selectedItem;
 
+    public GameObject toolHolder;
 
-
-
+    public GameObject selectedItemModel;
 
     private void Awake()
     {
@@ -143,6 +145,8 @@ public class EquipSystem : MonoBehaviour
                     selectedItem.GetComponent<InventoryItem>().isSelected = true;
                 }
 
+                SetEquippedModel(selectedItem);
+
                 // Change all slot colors to gray
                 //foreach (Transform child in numbersHolder.transform)
                 //{
@@ -200,6 +204,11 @@ public class EquipSystem : MonoBehaviour
                     selectedItem.GetComponent<InventoryItem>().isSelected = false;
                 }
 
+                if (selectedItemModel != null)
+                {
+                    DestroyImmediate(selectedItemModel.gameObject);
+                    selectedItemModel = null;
+                }
                 // Reset all colors to gray
                 foreach (Transform child in numbersHolder.transform)
                 {
@@ -211,6 +220,20 @@ public class EquipSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SetEquippedModel(GameObject selectedItem)
+    {
+        if (selectedItemModel != null)
+        {
+            DestroyImmediate(selectedItemModel.gameObject);
+            selectedItemModel = null;
+        }
+
+        string selectedItemName = selectedItem.name.Replace("(Clone)", "");
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+            new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
+        selectedItemModel.transform.SetParent(toolHolder.transform, false);
     }
     //void SelectQuickSlot(int number)
     //{
