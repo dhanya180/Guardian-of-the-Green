@@ -9,7 +9,7 @@ public class DayNightSystem : MonoBehaviour
     public Light directionalLight;
     public float dayDurationInSeconds = 24.0f;
     public int currentHour;
-    float currentTimeOfDay=0.35f;
+    float currentTimeOfDay=0.40f;
     public List<SkyboxTimeMapping>timeMappings;
     float blendedValue=0.0f;
     bool lockNextDayTrigger =false;

@@ -11711,7 +11711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionalLight: {fileID: 410087040}
-  dayDurationInSeconds: 720
+  dayDurationInSeconds: 1440
   currentHour: 0
   timeMappings:
   - phaseName: Night
