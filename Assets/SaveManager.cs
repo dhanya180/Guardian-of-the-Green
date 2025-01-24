@@ -283,37 +283,37 @@ string fileName ="SaveGame";
     #region || ------- Settings Section -------||
 
     #region || --------volume settings -------||
-    [System.Serializable]
-    public class VolumeSettings
-    {
-        public float music;
-        public float effects;
-        public float master;
-    }
-    public void SaveVolumeSettings(float _music, float _effects, float _master)
-    {
+    // [System.Serializable]
+    // public class VolumeSettings
+    // {
+    //     public float music;
+    //     public float effects;
+    //     public float master;
+    // }
+    // public void SaveVolumeSettings(float _music, float _effects, float _master)
+    // {
 
-        VolumeSettings volumeSettings = new VolumeSettings()
-        {
-            music = _music,
-            effects = _effects,
-            master = _master
-        };
+    //     VolumeSettings volumeSettings = new VolumeSettings()
+    //     {
+    //         music = _music,
+    //         effects = _effects,
+    //         master = _master
+    //     };
 
-        PlayerPrefs.SetString("Volume", JsonUtility.ToJson(volumeSettings));
-        PlayerPrefs.Save();
-        print("Saved to PlayerPrefs");
-    }
+    //     PlayerPrefs.SetString("Volume", JsonUtility.ToJson(volumeSettings));
+    //     PlayerPrefs.Save();
+    //     print("Saved to PlayerPrefs");
+    // }
 
-    public VolumeSettings LoadVolumeSettings()
-    {
-        //VolumeSettings settings = JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
-        //return settings;
+    // public VolumeSettings LoadVolumeSettings()
+    // {
+    //     //VolumeSettings settings = JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
+    //     //return settings;
 
-        return JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
+    //     return JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
 
 
-    }
+    // }
     #endregion
 
 
