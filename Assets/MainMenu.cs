@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-   // public Button LoadGameBTN;
-    
-
+    public Button LoadGameBTN;
     public void NewGame()
     {
         SceneManager.LoadScene("SampleScene");
+
     }
 
     public void ExitGame()

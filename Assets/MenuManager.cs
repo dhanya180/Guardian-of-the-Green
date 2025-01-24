@@ -118,10 +118,4 @@ public class MenuManager : MonoBehaviour
                 SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
         }
     }
-
-    // No need we can just remove it now
-    public void TempSaveGame()
-    {
-        SaveManager.Instance.SaveGame();
-    }
 }

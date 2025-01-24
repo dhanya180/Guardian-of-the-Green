@@ -28,44 +28,34 @@ public class SaveManager : MonoBehaviour
     }
 
     public bool isSavingToJson;
-    public void  SaveAllGameData(AllGameData gameData)
-    {
-        if(isSavingToJson)
-        {
-            //SaveGameDataToJsonFile(gameData);
-        }
-        else
-        {
-            SaveGameDataToBinaryFile(gameData);
-        }
-    }
-    //public bool isLoading;
-    //public Canvas loadingScreen;
-    //string jsonPathPersistant;
-    //string jsonPathProject;
+    
+    public bool isLoading;
+    public Canvas loadingScreen;
+    string jsonPathPersistant;
+    string jsonPathProject;
 
-//string fileName ="SaveGame";
-    //string binaryPath;
-    // private void Start()
-    // {
-    //     jsonPathProject = Application.dataPath + Path.AltDirectorySeparatorChar ;
-    //     jsonPathPersistant = Application.persistentDataPath + Path.AltDirectorySeparatorChar ;
-    //     binaryPath = Application.persistentDataPath +Path.AltDirectorySeparatorChar;
-    // }
+string fileName ="SaveGame";
+    string binaryPath;
+     private void Start()
+     {
+        jsonPathProject = Application.dataPath + Path.AltDirectorySeparatorChar ;
+        jsonPathPersistant = Application.persistentDataPath + Path.AltDirectorySeparatorChar ;
+        binaryPath = Application.persistentDataPath +Path.AltDirectorySeparatorChar;
+     }
 
     
-//     #region || ------General Section ------||
+    #region || ------General Section ------||
 
 
-//     #region || ------- Saving ------||
+     #region || ------- Saving ------||
     // uncomment it after status bar code added
-    public void SaveGame(/*int slotNumber*/)
+    public void SaveGame(int slotNumber)
     {
        AllGameData data = new AllGameData();
       // data.playerData = GetPlayerData();
     //data.EnvironmentData = GetEnvironmentData();
 
-       SaveAllGameData(data/*,slotNumber*/);
+       SavingTypeSwitch(data,slotNumber);
     }
 
 
@@ -74,6 +64,8 @@ public class SaveManager : MonoBehaviour
 //         List<string> itemsPickedup = InventorySystem.Instance.itemsPickedup;
 //         return new EnvironmentData(itemsPickedup);
 //     }
+
+
     // private PlayerData GetPlayerData()
     // {
     //    float[] playerStats = new float[3];
@@ -88,9 +80,9 @@ public class SaveManager : MonoBehaviour
     //   playerPosAndRot[3] = PlayerState.Instance.playerBody.transorm.Rotation.x;
     //   playerPosAndRot[4] = PlayerState.Instance.playerBody.transorm.Rotation.y;
     //   playerPosAndRot[5] = PlayerState.Instance.playerBody.transorm.Rotation.z;
-    // // //    string[] inventory = InventorySystem.Instance.itemList.ToArray();
-    // // //    string[] quickSlots = GetQuickSlotsContents();
-    //     return new PlayerData(playerStats,playerPosAndRot/*,inventory,quickSlots*/);
+    //     string[] inventory = InventorySystem.Instance.itemList.ToArray();
+    //     string[] quickSlots = GetQuickSlotsContents();
+    //     return new PlayerData(playerStats,playerPosAndRot,inventory,quickSlots);
     // }
 
 //     private string[] GetQuickSlotContents()
@@ -108,155 +100,145 @@ public class SaveManager : MonoBehaviour
 //         //     }
 //         // }
 //         return temp.ToArray();
-
-
-
-
-
 //     }
 
-//     public void SavingTypeSwitch(AllGameData gameData,int slotNumber)
-//     {
-//         if (isSavingToJson)
-//         {
-//             SaveGameDataToJsonFile(gameData,slotNumber);
-//         }
-//         else
-//         {
-//             SaveGameDataToBinaryFile(gameData,slotNumber);
-//         }
-//     }
-//     #endregion
+    public void SavingTypeSwitch(AllGameData gameData,int slotNumber)
+    {
+        if (isSavingToJson)
+        {
+            SaveGameDataToJsonFile(gameData,slotNumber);
+        }
+        else
+        {
+            SaveGameDataToBinaryFile(gameData,slotNumber);
+        }
+    }
+    #endregion
 
 
-//     #region || ------Loading ------||
-//     public AllGameData LoadingTypeSwitch(int slotNumber)
-//     {
-//         if (isSavingToJson)
-//         {
-//             AllGameData gameData = LoadGameDataFromJsonFile(slotNumber);
-//             return gameData;
-//         }
-//         else
-//         {
-//             AllGameData gameData= LoadGameDataFromBinaryFile(slotNumber);
-//             return gameData;
-//         }
-//     }
-//     public void LoadGame(int slotNumber)  
-//     {
-//         SetPlayerData(LoadingTypeSwitch(slotNumber).playerData);
-//         SetEnvironmentData(LoadingTypeSwitch(slotNumber).environmentData);
-//         isLoading=false;
+    #region || ------Loading ------||
+    public AllGameData LoadingTypeSwitch(int slotNumber)
+    {
+        if (isSavingToJson)
+        {
+            AllGameData gameData = LoadGameDataFromJsonFile(slotNumber);
+            return gameData;
+            
+        }
+        else
+        {
+            AllGameData gameData= LoadGameDataFromBinaryFile(slotNumber);
+            return gameData;
+        }
+    }
+    public void LoadGame(int slotNumber)  
+    {
+        SetPlayerData(LoadingTypeSwitch(slotNumber).playerData);
+        SetEnvironmentData(LoadingTypeSwitch(slotNumber).environmentData);
+        isLoading=false;
 
-//         DisabledLoadingScreen();
-//     }
+        DisabledLoadingScreen();
+    }
 
-//     private void SetEnvironmentData(EnvironmentData environmentData)
-//     {
-//         foreach( Transform itemType in EnvironmentManager.Instance.allItems.transform)
-//         {
-//             foreach(Transform item in itemType.transform)
-//             {
-//                 if(environmentData.pickedupItems.Contains(item.name))
-//                 {
-//                     Destroy(item.gameObject);
-//                 }
-//             }
-//         }
-//         InventorySystem.Instance.itemsPickedup = environmentData.pickedupItems;
+    private void SetEnvironmentData(EnvironmentData environmentData)
+    {
+        foreach( Transform itemType in EnvironmentManager.Instance.allItems.transform)
+        {
+            foreach(Transform item in itemType.transform)
+            {
+                if(environmentData.pickedupItems.Contains(item.name))
+                {
+                    Destroy(item.gameObject);
+                }
+            }
+        }
+        InventorySystem.Instance.itemsPickedup = environmentData.pickedupItems;
 
-//     }
-//     private void SetPlayerData(PlayerData playerData)
-//     {
-//         ////throw new NotImplementedException();
-//         //    PlayerState.Instance.currentHealth=playerData.playerStats[0];
-//         //PlayerState.Instance.currentCalories = playerData.playerStats[1];
-//         //PlayerState.Instance.currentHydrationPercent= playerData.playerStats[2];
+    }
+    private void SetPlayerData(PlayerData playerData)
+    {
+       
+        //    PlayerState.Instance.currentHealth=playerData.playerStats[0];
+        //PlayerState.Instance.currentCalories = playerData.playerStats[1];
+        //PlayerState.Instance.currentHydrationPercent= playerData.playerStats[2];
 
-//         //Vector3 loadedPosition;
-//         //loadedPosition.x = playerData.playerPositionAndRotation[0];
-//         //loadedPosition.y = playerData.playerPositionAndRotation[1];
-//         //loadedPosition.z = playerData.playerPositionAndRotation[2];
+        //Vector3 loadedPosition;
+        //loadedPosition.x = playerData.playerPositionAndRotation[0];
+        //loadedPosition.y = playerData.playerPositionAndRotation[1];
+        //loadedPosition.z = playerData.playerPositionAndRotation[2];
 
-//         //Vector3 loadedRotation;
-//         //loadedRotation.x = playerData.playerPositionAndRotation[3];
-//         //loadedRotation.y = playerData.playerPositionAndRotation[4];
-//         //loadedRotation.z = playerData.playerPositionAndRotation[5];
+        //PlayerState.Instance.playerBody.transform.position =loadedPosition;
+        //Vector3 loadedRotation;
+        //loadedRotation.x = playerData.playerPositionAndRotation[3];
+        //loadedRotation.y = playerData.playerPositionAndRotation[4];
+        //loadedRotation.z = playerData.playerPositionAndRotation[5];
 
-//         //PlayerState.Instance.playerBody.transform.rotation =Quaternion.Euler(loadedRotation);
-
-
-//         /*Setting the inventory Content*/
-
-//         foreach(string item in playerData.inventoryContent)
-//         {
-//             InventorySystem.Instance.AddToInventory(item);
-//         }
-// //uncomment this out
-//         // foreach(string item in playerData.quickSlotsContent)
-//         // {
-//         //     GameObject availableSlot = EquipSystem.Instance.FindNextEmptySlot();
-//         //     var itemToAdd = Instantiate(Resources.Load<GameObject>(item));
-//         //     itemToAdd.transform.SetParent(availableSlot.transform,false);
-//         // }
+        //PlayerState.Instance.playerBody.transform.rotation =Quaternion.Euler(loadedRotation);
 
 
-      
+        /*Setting the inventory Content*/
 
+        // foreach(string item in playerData.inventoryContent)
+        // {
+        //     InventorySystem.Instance.AddToInventory(item);
+        // }
 
-//     }
+ 
+        // foreach(string item in playerData.quickSlotsContent)
+        // {
+        //     GameObject availableSlot = EquipSystem.Instance.FindNextEmptySlot();
+        //     var itemToAdd = Instantiate(Resources.Load<GameObject>(item));
+        //     itemToAdd.transform.SetParent(availableSlot.transform,false);
+        // }
+     }
 
-//     public void StartLoadedGame(int slotNumber)
-//     {
-//         ActivateLoadingScreen();
-//         isLoading=true;
-//         SceneManager.LoadScene("GameScene");
-//         StartCoroutine(DelayedLoading(slotNumber));
-//     }
+    public void StartLoadedGame(int slotNumber)
+    {
+        ActivateLoadingScreen();
+        isLoading=true;
+        SceneManager.LoadScene("SampleScene");
+        StartCoroutine(DelayedLoading(slotNumber));
+    }
 
-//     private IEnumerator DelayedLoading(int slotNumber)
-//     {
-//         yield return new WaitForSeconds(1f);
-//         LoadGame(slotNumber);
-//         //print(" Game Loaded");
-//     }
+    private IEnumerator DelayedLoading(int slotNumber)
+    {
+        yield return new WaitForSeconds(1f);
+        LoadGame(slotNumber);
+    }
 
-//     #endregion
+     #endregion
 
 
 
 
-//     #endregion
+    #endregion
 
     #region || ---- To Binary Section -------||
 
-    public void SaveGameDataToBinaryFile(AllGameData gameData/*,int slotNumber*/)
+    public void SaveGameDataToBinaryFile(AllGameData gameData,int slotNumber)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
         
-        //FileStream stream = new FileStream(binaryPath+fileName+slotNumber+".bin", FileMode.Create);
-        string path = Application.persistentDataPath +"/save_game.bin";
-        FileStream stream = new FileStream(path,FileMode.Create);
+        FileStream stream = new FileStream(binaryPath+fileName+slotNumber+".bin", FileMode.Create);
         formatter.Serialize(stream, gameData);
         stream.Close();
 
-        print("Data Saved to" + path/*binaryPath+fileName+slotNumber+".bin"*/);
+        print("Data Saved to" + binaryPath+fileName+slotNumber+".bin");
     }
 
     public AllGameData LoadGameDataFromBinaryFile(int slotNumber)
     {
        
-       string path = Application.persistentDataPath +"/save_game.bin";
-        if(File.Exists(path/*binaryPath+fileName+slotNumber+".bin"*/))
+      
+        if(File.Exists(binaryPath+fileName+slotNumber+".bin"))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path/*binaryPath+fileName+slotNumber+".bin"*/, FileMode.Open);
+            FileStream stream = new FileStream(binaryPath+fileName+slotNumber+".bin", FileMode.Open);
 
             AllGameData data = formatter.Deserialize(stream) as AllGameData;
             stream.Close();
-            print("Data Loaded from" +path/* binaryPath+fileName+slotNumber+".bin"*/);
+            print("Data Loaded from" +binaryPath+fileName+slotNumber+".bin");
             return data;
         }
         else
@@ -267,37 +249,36 @@ public class SaveManager : MonoBehaviour
     #endregion
 
 
-//     #region || ---- To Json Section -------||
+    #region || ---- To Json Section -------||
 
-//     public void SaveGameDataToJsonFile(AllGameData gameData,int slotNumber)
-//     {
-//         string json = JsonUtility.ToJson(gameData);
+    public void SaveGameDataToJsonFile(AllGameData gameData,int slotNumber)
+    {
+        string json = JsonUtility.ToJson(gameData);
 
-//         //string encrypted = EncryptionDecryption(json);
+       // string encrypted = EncryptionDecryption(json);
 
-//         using(StreamWriter writer = new StreamWriter(jsonPathProject+fileName+slotNumber+".json"))
-//         {
+        using(StreamWriter writer = new StreamWriter(jsonPathProject+fileName+slotNumber+".json"))
+        {
             
-//             //writer.Write(encrypted); 
-//             writer.Write(json); 
-//             print("Saved Game to Json file at :"+ jsonPathProject+fileName+slotNumber+".json");
-//         }
-//     }
+         //   writer.Write(encrypted); 
+            writer.Write(json); 
+            print("Saved Game to Json file at :"+ jsonPathProject+fileName+slotNumber+".json");
+        }
+    }
 
-//     public AllGameData LoadGameDataFromJsonFile(int slotNumber)
-//     {
-//         using (StreamReader reader = new StreamReader(jsonPathProject+fileName+slotNumber+".json"))
-//         {
-//             string json = reader.ReadToEnd();
+    public AllGameData LoadGameDataFromJsonFile(int slotNumber)
+    {
+        using (StreamReader reader = new StreamReader(jsonPathProject+fileName+slotNumber+".json"))
+        {
+            string json = reader.ReadToEnd();
 
-//             //string decrypted = EncryptionDecryption(json);
-//             //AllGameData data = JsonUtility.FromJson<AllGameData>(decrypted);
-//             AllGameData data = JsonUtility.FromJson<AllGameData>(json);
-//             return data;
-//         }
+           // string decrypted = EncryptionDecryption(json);
+            AllGameData data = JsonUtility.FromJson<AllGameData>(json);
+            return data;
+        }
 
-//     }
-//     #endregion
+    }
+   #endregion
 
     #region || ------- Settings Section -------||
 
@@ -338,94 +319,80 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-// #region || --------Encryption ---------||
+#region || --------Encryption ---------||
 
-// public string EncryptionDecryption(string jsonString)
-// {
-//     string keyword ="1234567";
-//     string result = "";
-//     for(int i=0;i< jsonString.Length;i++)
-//     {
-//         result+=(char)(jsonString[i] ^ keyword[i% keyword.Length]);
-//     }
-//     return result;
-// }
+public string EncryptionDecryption(string jsonString)
+{
+    string keyword ="1234567";
+    string result = "";
+    for(int i=0;i< jsonString.Length;i++)
+    {
+        result+=(char)(jsonString[i] ^ keyword[i% keyword.Length]);
+    }
+    return result;
+}
+#endregion
 
+#region || ----------- LoadingSection ---------||
+public void ActivateLoadingScreen()
+{
+    loadingScreen.gameObject.SetActive(true);
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+}
 
-// // XOR = :is there a difference"
+public void DisabledLoadingScreen()
+{
+    loadingScreen.gameObject.SetActive(false);
+}
+#endregion
 
-// //----Encrypt ----
-// //Mike = 01101101 01101001 01101011 01100101
-// //M - 01101101
-// //Key -  00000001
-// //
-// //Encrypted - 01101100
+    #region || -------- Utility --------||
 
-// // --- Decrypt ----
-// //Encrypted -01101100
-// //key - 00000001
-// #endregion
+public bool DoesFileExists(int slotNumber)
+{
+    if(isSavingToJson)
+    {
+        if(System.IO.File.Exists(jsonPathProject+fileName+slotNumber+".json"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if(System.IO.File.Exists(binaryPath+fileName+slotNumber+".bin"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
 
-// #region || ----------- LoadingSection ---------||
-// public void ActivateLoadingScreen()
-// {
-//     loadingScreen.gameObject.SetActive(true);
-//     Cursor.lockState = CursorLockMode.Locked;
-//     Cursor.visible = false;
-// }
+ public bool IsSlotEmpty(int slotNumber)
+    {
+       if(DoesFileExists(slotNumber))
+       {
+        return false;
 
-// public void DisabledLoadingScreen()
-// {
-//     loadingScreen.gameObject.SetActive(false);
-// }
-// #endregion
+       }
+       else{
+        return true;
+       }
+    }
 
-//    #region || -------- Utility --------||
+public void DeselectButton()
+    {
+        GameObject myEventSystem = GameObject.Find("EventSystem");
+        myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 
-// public bool DoesFileExists(int slotNumber)
-// {
-//     if(isSavingToJson)
-//     {
-//         if(System.IO.File.Exists(jsonPathProject+fileName+slotNumber+".json"))
-//         {
-//             return true;
-//         }
-//         else
-//         {
-//             return false;
-//         }
-//     }
-//     else
-//     {
-//         if(System.IO.File.Exists(binaryPath+fileName+slotNumber+".bin"))
-//         {
-//             return true;
-//         }
-//         else
-//         {
-//             return false;
-//         }
-//     }
-// }
-
-//  public bool IsSlotEmpty(int slotNumber)
-//     {
-//        if(DoesFileExists(slotNumber))
-//        {
-//         return false;
-
-//        }
-//        else{
-//         return true;
-//        }
-//     }
-
-// public void DeselectButton()
-//     {
-//         GameObject myEventSystem = GameObject.Find("EventSystem");
-//         myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
-
-//     }
-//  #endregion
+    }
+  #endregion
  
 }
