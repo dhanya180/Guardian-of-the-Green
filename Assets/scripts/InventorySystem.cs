@@ -16,6 +16,7 @@ public class InventorySystem : MonoBehaviour
     public static InventorySystem Instance { get; private set; }
 
     public GameObject inventoryScreenUI;
+    public List<string> itemsPickedup = new List<string>();
 
     public List<GameObject> slotList = new List<GameObject>();
 
