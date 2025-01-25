@@ -231,9 +231,48 @@ public class EquipSystem : MonoBehaviour
         }
 
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
-            new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
+        // selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+        // new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
+
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(CaluclateItemModel(selectedItemName)));
         selectedItemModel.transform.SetParent(toolHolder.transform, false);
+    }
+
+    private string CaluclateItemModel(string selectedItemName)
+    {
+        switch(selectedItemName)
+        {
+            case "Axe":
+            return "Axe_Model";
+            case "TomatoSeed":
+            return "Hand_Model";
+            case "PumpkinSeed":
+            return "Hand_Model";
+            case "WateringCan":
+            return "WateringCan_Model";
+            default:
+            return null;
+        }
+    }
+
+    public bool IsPlayerHoldingSeed()
+    {
+        if(selectedItemModel!=null)
+        {
+            switch(selectedItemModel.gameObject.name)
+            {
+                case "Hand_Model(Clone)":
+                return true;
+                case "Hand_Model":
+                return true;
+                default:
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
     //void SelectQuickSlot(int number)
     //{
@@ -270,6 +309,23 @@ public class EquipSystem : MonoBehaviour
         return quickSlotsList[slotNumber - 1].transform.GetChild(0).gameObject;
     }
 
+    internal  bool IsPlayerHoldingWateringCan()
+    {
+        if(selectedItem!=null)
+        {
+            switch(selectedItem.GetComponent<InventoryItem>().thisName)
+            {
+                case "WateringCan":
+                return true;
+                default:
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 
@@ -315,7 +371,7 @@ public class EquipSystem : MonoBehaviour
     }
 
 
-    private GameObject FindNextEmptySlot()
+    public GameObject FindNextEmptySlot()
     {
         foreach (GameObject slot in quickSlotsList)
         {
