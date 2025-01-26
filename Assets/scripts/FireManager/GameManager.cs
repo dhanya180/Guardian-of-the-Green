@@ -1,26 +1,48 @@
+
+
+
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // Required for scene management
 
 public class GameManager : MonoBehaviour
 {
     public Slider oxygenSlider; // UI slider to display oxygen level
     public float oxygenLevel = 100f; // Starting oxygen level
     public float baseOxygenDecreaseRate = 1f; // Base rate of oxygen decrease
-    public int totalFires = 0; // Total number of active fires
+    public int totalFires = 7; // Total number of active fires
     private bool gameOver = false; // Game over flag
+
+    public GameObject gameOverUI; // Reference to Game Over UI panel
+    public float delayBeforeMainMenu = 3f; // Delay before loading the MainMenu scene
 
     void Start()
     {
+        // Unlock the cursor at the start
+       // Cursor.lockState = CursorLockMode.None;
+      // Cursor.visible = true;
+
         // Initialize the slider's max value and starting value
         if (oxygenSlider != null)
         {
             oxygenSlider.maxValue = oxygenLevel;
             oxygenSlider.value = oxygenLevel;
         }
+
+        // Ensure Game Over UI is initially disabled
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(false);
+        }
     }
 
     void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.Escape)) // Escape key toggles cursor
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //}
         if (gameOver) return;
 
         if (totalFires > 0)
@@ -57,10 +79,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void GameOver()
+    private void GameOver() { 
+    //{
+    //    gameOver = true;
+    //    Debug.Log("Game Over! Oxygen depleted.");
+
+    //    // Display Game Over UI
+    //    if (gameOverUI != null)
+    //    {
+    //        gameOverUI.SetActive(true);
+    //    }
+
+    //    // Delay and then load the MainMenu scene
+    //    Invoke(nameof(LoadMainMenu), delayBeforeMainMenu);
+    gameOver = true;
+
+    // Unlock and show the cursor
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+
+    // Display Game Over UI
+    if (gameOverUI != null)
     {
-        gameOver = true;
-        Debug.Log("Game Over! Oxygen depleted.");
-        // Implement additional game-over logic here (e.g., display game-over UI)
+        gameOverUI.SetActive(true);
+    }
+
+// Delay and load MainMenu scene
+Invoke(nameof(LoadMainMenu), delayBeforeMainMenu);
+    }
+
+
+
+    private void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
+
