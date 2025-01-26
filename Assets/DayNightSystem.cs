@@ -54,7 +54,12 @@ public class DayNightSystem : MonoBehaviour
         if(currentHour == 0 && lockNextDayTrigger == false)
         {
 
-            TimeManager.Instance.TriggerNextDay();
+            //TimeManager.Instance.TriggerNextDay();
+            if (TimeManager.Instance != null)
+{
+    TimeManager.Instance.TriggerNextDay();
+}
+
             lockNextDayTrigger=true;
         }
 
