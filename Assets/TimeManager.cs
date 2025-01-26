@@ -37,5 +37,13 @@ public class TimeManager : MonoBehaviour
         OnDayPass.Invoke();
     }
 
+    //  public void TriggerNextDay(int day)
+    // {
+    //     dayInGame=day;
+    //     dayInGame+=1;
+    //     dayUI.text =$"Day:{dayIngame}";
+    //     OnDayPass.Invoke();
+    // }
+
 
 }

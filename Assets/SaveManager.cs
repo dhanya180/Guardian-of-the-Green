@@ -54,6 +54,7 @@ string fileName ="SaveGame";
        AllGameData data = new AllGameData();
        data.playerData = GetPlayerData();
     data.environmentData = GetEnvironmentData();
+    data.dayNumber=GetDayNumber();
 
        SavingTypeSwitch(data,slotNumber);
     }
@@ -102,6 +103,11 @@ string fileName ="SaveGame";
         return temp.ToArray();
     }
 
+    private int GetDayNumber()
+    {
+        return TimeManager.Instance.dayInGame;
+    }
+
     public void SavingTypeSwitch(AllGameData gameData,int slotNumber)
     {
         if (isSavingToJson)
@@ -135,6 +141,7 @@ string fileName ="SaveGame";
     {
         SetPlayerData(LoadingTypeSwitch(slotNumber).playerData);
         SetEnvironmentData(LoadingTypeSwitch(slotNumber).environmentData);
+        SetDayNumber(LoadingTypeSwitch(slotNumber).dayNumber);
         isLoading=false;
 
         DisabledLoadingScreen();
@@ -158,7 +165,7 @@ string fileName ="SaveGame";
     private void SetPlayerData(PlayerData playerData)
     {
        
-           PlayerState.Instance.currentHealth=playerData.playerStats[0];
+        PlayerState.Instance.currentHealth=playerData.playerStats[0];
         PlayerState.Instance.currentCalories = playerData.playerStats[1];
         PlayerState.Instance.currentHydrationPercent= playerData.playerStats[2];
 
@@ -190,6 +197,12 @@ string fileName ="SaveGame";
             var itemToAdd = Instantiate(Resources.Load<GameObject>(item));
             itemToAdd.transform.SetParent(availableSlot.transform,false);
         }
+     }
+
+     private void SetDayNumber(int dayNumber)
+     {
+
+        int day=dayNumber;
      }
 
     public void StartLoadedGame(int slotNumber)

@@ -747,7 +747,7 @@ MonoBehaviour:
   dayOfPlanting: 0
   plantAge: 0
   ageForYoungModel: 1
-  ageForMatureModel: 3
+  ageForMatureModel: 2
   ageForFirstProduceBatch: 4
   daysForNewProduce: 2
   daysRemainingForNewProduceCounter: 0
