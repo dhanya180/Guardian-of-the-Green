@@ -87,23 +87,46 @@ public class SelectionManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            var selectionTransform = hit.transform;
+            Transform selectionTransform = hit.transform;
+            Debug.Log($"Raycast hit: {selectionTransform.name}"); // Debug the hit object name
 
+            // Handle shopkeeper logic
+            ShopKeeper shop = selectionTransform.GetComponent<ShopKeeper>();
+            if (shop)
+            {
+                Debug.Log("Shopkeeper detected.");
+                Debug.Log($"Player in range: {shop.playerInRange}");
+
+
+                if (shop.playerInRange)
+                {
+                    interaction_text.text = "Talk";
+                    interaction_Info_UI.SetActive(true);
+
+                    if (Input.GetMouseButtonDown(0) && !shop.isTalkingWithPlayer)
+                    {
+                        Debug.Log("Player clicked to talk with shopkeeper.");
+                        shop.Talk(); // Initiate dialogue with shopkeeper
+                    }
+                }
+                else
+                {
+                    interaction_text.text = "";
+                    interaction_Info_UI.SetActive(false);
+                }
+
+                return; // Exit here to avoid further checks since the shopkeeper logic is handled
+            }
+
+            // Handle generic interactable objects
             InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
-
             if (interactable)
             {
                 onTarget = true;
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
-                /*if ()
-                {
 
-                }
-                else
-                {
-
-                }*/
+                // Additional logic for interactable objects can go here
             }
             else
             {
@@ -187,11 +210,13 @@ public class SelectionManager : MonoBehaviour
         }
        else
         {
+            // Raycast did not hit any object
             onTarget = false;
             interaction_Info_UI.SetActive(false);
             handIsVisible = false;
         }
     }
+
 
     public void DisableSelection()
     {

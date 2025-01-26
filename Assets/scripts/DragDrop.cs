@@ -61,10 +61,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         }
 
-        Debug.Log("OnEndDrag");
+        Debug.Log($"OnEndDrag: Item returned to {transform.parent.name}");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
     }
+
+
 
 
 

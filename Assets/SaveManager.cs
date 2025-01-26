@@ -149,19 +149,20 @@ string fileName ="SaveGame";
 
     private void SetEnvironmentData(EnvironmentData environmentData)
     {
-        foreach( Transform itemType in EnvironmentManager.Instance.allItems.transform)
+        foreach (Transform itemType in EnvironmentManager.Instance.allItems.transform)
         {
-            foreach(Transform item in itemType.transform)
+            foreach (Transform item in itemType.transform)
             {
-                if(environmentData.pickedupItems.Contains(item.name))
+                if (environmentData.pickedupItems.Contains(item.name))
                 {
                     Destroy(item.gameObject);
                 }
             }
         }
-        InventorySystem.Instance.itemsPickedup = environmentData.pickedupItems;
-
+        // Update this line to use 'itemList' or another appropriate list in InventorySystem
+        InventorySystem.Instance.itemList = environmentData.pickedupItems;
     }
+
     private void SetPlayerData(PlayerData playerData)
     {
        
