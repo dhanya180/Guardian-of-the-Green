@@ -86,6 +86,9 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public string ItemName;
+    public bool playerInRange;
+
+    [SerializeField] float detectionRange=10f;
 
     public string GetItemName()
     {
@@ -94,7 +97,17 @@ public class InteractableObject : MonoBehaviour
 
     void Update()
     {
-        // Get the pointer's screen position from the SelectionManager
+
+        float distance = Vector3.Distance(PlayerState.Instance.playerBody.transform.position,transform.position);
+        if(distance < detectionRange)
+        {
+            playerInRange = true;
+        }
+        else
+        {
+            playerInRange = false;
+        }
+       // Get the pointer's screen position from the SelectionManager
         Vector2 pointerScreenPosition = RectTransformUtility.WorldToScreenPoint(
             null,
             SelectionManager.Instance.pointerTransform.position
@@ -118,6 +131,7 @@ public class InteractableObject : MonoBehaviour
                     if (!InventorySystem.Instance.CheckIfFull())
                     {
                         InventorySystem.Instance.AddToInventory(ItemName);
+                        InventorySystem.Instance.itemsPickedup.Add(gameObject.name);
 
                         Debug.Log($"Picked up: {ItemName}");
                         Destroy(gameObject); // Destroy the object or handle custom logic

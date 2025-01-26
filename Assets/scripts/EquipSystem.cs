@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
+using Unity.VisualScripting;
 
 public class EquipSystem : MonoBehaviour
 {
@@ -20,9 +22,9 @@ public class EquipSystem : MonoBehaviour
     public int selectedNumber = -1;
     public GameObject selectedItem;
 
+    public GameObject toolHolder;
 
-
-
+    public GameObject selectedItemModel;
 
     private void Awake()
     {
@@ -143,6 +145,8 @@ public class EquipSystem : MonoBehaviour
                     selectedItem.GetComponent<InventoryItem>().isSelected = true;
                 }
 
+                SetEquippedModel(selectedItem);
+
                 // Change all slot colors to gray
                 //foreach (Transform child in numbersHolder.transform)
                 //{
@@ -200,6 +204,11 @@ public class EquipSystem : MonoBehaviour
                     selectedItem.GetComponent<InventoryItem>().isSelected = false;
                 }
 
+                if (selectedItemModel != null)
+                {
+                    DestroyImmediate(selectedItemModel.gameObject);
+                    selectedItemModel = null;
+                }
                 // Reset all colors to gray
                 foreach (Transform child in numbersHolder.transform)
                 {
@@ -210,6 +219,59 @@ public class EquipSystem : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void SetEquippedModel(GameObject selectedItem)
+    {
+        if (selectedItemModel != null)
+        {
+            DestroyImmediate(selectedItemModel.gameObject);
+            selectedItemModel = null;
+        }
+
+        string selectedItemName = selectedItem.name.Replace("(Clone)", "");
+        // selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+        // new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
+
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(CaluclateItemModel(selectedItemName)));
+        selectedItemModel.transform.SetParent(toolHolder.transform, false);
+    }
+
+    private string CaluclateItemModel(string selectedItemName)
+    {
+        switch(selectedItemName)
+        {
+            case "Axe":
+            return "Axe_Model";
+            case "TomatoSeed":
+            return "Hand_Model";
+            case "PumpkinSeed":
+            return "Hand_Model";
+            case "WateringCan":
+            return "WateringCan_Model";
+            default:
+            return null;
+        }
+    }
+
+    public bool IsPlayerHoldingSeed()
+    {
+        if(selectedItemModel!=null)
+        {
+            switch(selectedItemModel.gameObject.name)
+            {
+                case "Hand_Model(Clone)":
+                return true;
+                case "Hand_Model":
+                return true;
+                default:
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
     //void SelectQuickSlot(int number)
@@ -247,6 +309,23 @@ public class EquipSystem : MonoBehaviour
         return quickSlotsList[slotNumber - 1].transform.GetChild(0).gameObject;
     }
 
+    internal  bool IsPlayerHoldingWateringCan()
+    {
+        if(selectedItem!=null)
+        {
+            switch(selectedItem.GetComponent<InventoryItem>().thisName)
+            {
+                case "WateringCan":
+                return true;
+                default:
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 
@@ -292,7 +371,7 @@ public class EquipSystem : MonoBehaviour
     }
 
 
-    private GameObject FindNextEmptySlot()
+    public GameObject FindNextEmptySlot()
     {
         foreach (GameObject slot in quickSlotsList)
         {
