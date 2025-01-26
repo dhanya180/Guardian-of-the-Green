@@ -231,8 +231,8 @@ public class EquipSystem : MonoBehaviour
         }
 
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        // selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
-        // new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
+        //selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+        //new Vector3(-0.55f, 0.65f, 0.97f), Quaternion.Euler(-13.44f, 120.36f, -16.713f));
 
         selectedItemModel = Instantiate(Resources.Load<GameObject>(CaluclateItemModel(selectedItemName)));
         selectedItemModel.transform.SetParent(toolHolder.transform, false);
@@ -242,7 +242,7 @@ public class EquipSystem : MonoBehaviour
     {
         switch(selectedItemName)
         {
-            case "Axe":
+            case "axe":
             return "Axe_Model";
             case "TomatoSeed":
             return "Hand_Model";
