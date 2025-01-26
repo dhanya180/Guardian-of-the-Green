@@ -18,9 +18,7 @@ public class PlayerState : MonoBehaviour
     public float currentHydrationPercent;
     public float maxHydrationPercent;
 
-    float distanceTravelled=0;
-    Vector3 lastPosition;
-    public GameObject playerBody;
+
 
 
 
@@ -46,16 +44,6 @@ public class PlayerState : MonoBehaviour
     }
     void Update()
     {
-        distanceTravelled+=Vector3.Distance(playerBody.transform.position,lastPosition);
-        lastPosition =playerBody.transform.position;
-        if(distanceTravelled >=5)
-        {
-            distanceTravelled=0;
-            currentCalories-=1;
-        }
-
-
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             currentHealth -= 10;

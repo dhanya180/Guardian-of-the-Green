@@ -11,12 +11,12 @@ public class SettingsManager : MonoBehaviour
     public static SettingsManager Instance { get; private set; }
     public Button backBTN;
 
-    public Slider masterSlider;
-    public GameObject masterValue;
-    public Slider musicSlider;
-    public GameObject musicValue;
-    public Slider effectsSlider;
-    public GameObject effectsValue;
+    // public Slider masterSlider;
+    // public GameObject masterValue;
+    // public Slider musicSlider;
+    // public GameObject musicValue;
+    // public Slider effectsSlider;
+    // public GameObject effectsValue;
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class SettingsManager : MonoBehaviour
             Debug.LogError("SaveManager instance is null. Cannot save volume settings.");
             return;
         }
-            SaveManager.Instance.SaveVolumeSettings(musicSlider.value,effectsSlider.value,masterSlider.value);
+            //SaveManager.Instance.SaveVolumeSettings(musicSlider.value,effectsSlider.value,masterSlider.value);
             
         });
 
@@ -42,37 +42,37 @@ public class SettingsManager : MonoBehaviour
 
     private IEnumerator LoadAndApplySettings()
     {
-        LoadAndSetVolume();
+       // LoadAndSetVolume();
 
         
         yield return new WaitForSeconds(0.1f);
     }
 
-    private void LoadAndSetVolume()
-    {
+//     private void LoadAndSetVolume()
+//     {
 
-        if (SaveManager.Instance == null)
-    {
-        Debug.LogError("SaveManager instance is null. Ensure it is properly initialized.");
-        return;
-    }
-        VolumeSettings volumeSettings = SaveManager.Instance.LoadVolumeSettings();
-         if (volumeSettings == null)
-   {
-    Debug.LogError("Failed to load volume settings. Ensure the data exists in SaveManager.");
-    return;
-   }
-   if (masterSlider == null || musicSlider == null || effectsSlider == null)
-{
-    Debug.LogError("One or more sliders are not assigned in the Inspector.");
-    return;
-}
-        masterSlider.value = volumeSettings.master; 
-        musicSlider.value = volumeSettings.music;   
-        effectsSlider.value = volumeSettings.effects;
+//         if (SaveManager.Instance == null)
+//     {
+//         Debug.LogError("SaveManager instance is null. Ensure it is properly initialized.");
+//         return;
+//     }
+//         VolumeSettings volumeSettings = SaveManager.Instance.LoadVolumeSettings();
+//          if (volumeSettings == null)
+//    {
+//     Debug.LogError("Failed to load volume settings. Ensure the data exists in SaveManager.");
+//     return;
+//    }
+//    if (masterSlider == null || musicSlider == null || effectsSlider == null)
+// {
+//     Debug.LogError("One or more sliders are not assigned in the Inspector.");
+//     return;
+// }
+//         masterSlider.value = volumeSettings.master; 
+//         musicSlider.value = volumeSettings.music;   
+//         effectsSlider.value = volumeSettings.effects;
 
-        print("Volume Settings are Loaded");
-    }
+//         print("Volume Settings are Loaded");
+//     }
 
 
     private void Awake()
@@ -87,10 +87,10 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        masterValue.GetComponent<TextMeshProUGUI>().text = "" + (masterSlider.value) + "";
-        musicValue.GetComponent<TextMeshProUGUI>().text = "" + (musicSlider.value) + "";
-        effectsValue.GetComponent<TextMeshProUGUI>().text = "" + (effectsSlider.value) + "";
-    }
+    // private void Update()
+    // {
+    //     masterValue.GetComponent<TextMeshProUGUI>().text = "" + (masterSlider.value) + "";
+    //     musicValue.GetComponent<TextMeshProUGUI>().text = "" + (musicSlider.value) + "";
+    //     effectsValue.GetComponent<TextMeshProUGUI>().text = "" + (effectsSlider.value) + "";
+    // }
 }

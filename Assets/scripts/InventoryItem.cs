@@ -36,8 +36,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool isInsideQuickSlot;
 
     public bool isSelected;
-    public int amountInInventory=1;
-    public int sellingPrice;
+
 
     private void Start()
     {
