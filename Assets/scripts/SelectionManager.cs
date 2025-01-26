@@ -24,8 +24,6 @@ public class SelectionManager : MonoBehaviour
 
     public bool handIsVisible;
 
-    public GameObject selectedSoil;
-
     private void Start()
     {
         onTarget = false;
@@ -87,46 +85,24 @@ public class SelectionManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            Transform selectionTransform = hit.transform;
-            Debug.Log($"Raycast hit: {selectionTransform.name}"); // Debug the hit object name
+            var selectionTransform = hit.transform;
 
-            // Handle shopkeeper logic
-            ShopKeeper shop = selectionTransform.GetComponent<ShopKeeper>();
-            if (shop)
-            {
-                Debug.Log("Shopkeeper detected.");
-                Debug.Log($"Player in range: {shop.playerInRange}");
-
-
-                if (shop.playerInRange)
-                {
-                    interaction_text.text = "Talk";
-                    interaction_Info_UI.SetActive(true);
-
-                    if (Input.GetMouseButtonDown(0) && !shop.isTalkingWithPlayer)
-                    {
-                        Debug.Log("Player clicked to talk with shopkeeper.");
-                        shop.Talk(); // Initiate dialogue with shopkeeper
-                    }
-                }
-                else
-                {
-                    interaction_text.text = "";
-                    interaction_Info_UI.SetActive(false);
-                }
-
-                return; // Exit here to avoid further checks since the shopkeeper logic is handled
-            }
-
-            // Handle generic interactable objects
             InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+
             if (interactable)
             {
+
                 onTarget = true;
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
+                /*if ()
+                {
 
-                // Additional logic for interactable objects can go here
+                }
+                else
+                {
+
+                }*/
             }
             else
             {
@@ -134,89 +110,14 @@ public class SelectionManager : MonoBehaviour
                 interaction_Info_UI.SetActive(false);
                 handIsVisible = false;
             }
-
-            Soil soil = selectionTransform.GetComponent<Soil>();
-
-            if(soil && soil.playerInRange)
-            {
-                if(soil.isEmpty && EquipSystem.Instance.IsPlayerHoldingSeed())
-                {
-                    string seedName = EquipSystem.Instance.selectedItem.GetComponent<InventoryItem>().thisName;
-                    string onlyPlantName = seedName.Split(new string[] { "Seed"},StringSplitOptions.None)[0];
-
-                    interaction_text.text = "Plant"+  onlyPlantName;
-                    interaction_Info_UI.SetActive(true);
-
-                    if(Input.GetMouseButtonDown(0))
-                    {
-                        soil.PlantSeed();
-                        Destroy(EquipSystem.Instance.selectedItem);
-                        Destroy(EquipSystem.Instance.selectedItemModel);
-                    }
-
-                }
-                else if(soil.isEmpty)
-                {
-                    interaction_text.text="Soil";
-                    interaction_Info_UI.SetActive(true);
-                }
-                else
-                {
-                    if(EquipSystem.Instance.IsPlayerHoldingWateringCan())
-                    {
-                        if(soil.currentPlant.isWatered)
-                        {
-                            interaction_text.text=soil.plantName;
-                        interaction_Info_UI.SetActive(true);
-                        }
-                        else
-                        {
-                            interaction_text.text="Use Watering Can";
-                        interaction_Info_UI.SetActive(true);
-
-                        if(Input.GetMouseButtonDown(0))
-                        {
-                            soil.currentPlant.isWatered =true;
-                            soil.MakeSoilWatered();
-                        }
-                        }
-                    }
-                    else
-                    {
-                        interaction_text.text=soil.plantName;
-                        interaction_Info_UI.SetActive(true);
-                    }
-
-                }
-
-                selectedSoil = soil.gameObject;
-            }
-            else
-            {
-                if(selectedSoil != null)
-                {
-                    selectedSoil  =null;
-                }
-
-            }
-
-            if( !soil)
-            {
-                if(!interactable){
-                interaction_Info_UI.SetActive(false);
-                interaction_text.text ="";
-                }
-            }
         }
-       else
+        else
         {
-            // Raycast did not hit any object
             onTarget = false;
             interaction_Info_UI.SetActive(false);
             handIsVisible = false;
         }
     }
-
 
     public void DisableSelection()
     {
