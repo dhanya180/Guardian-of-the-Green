@@ -7,7 +7,6 @@ TagManager:
   - Slot
   - QuickSlot
   - SellSlot
-  - FirePipe
   layers:
   - Default
   - TransparentFX

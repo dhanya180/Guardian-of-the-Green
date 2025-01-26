@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 6e59c59b81ab47f9b6ec5781fa725d2c
-timeCreated: 1484171296
+guid: 79459efec17a4d00a321bdcc27bbc385
+timeCreated: 1484172856
 licenseType: Pro
-TextScriptImporter:
+NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -11,5 +11,6 @@ AssetOrigin:
   productId: 213197
   packageName: Unity Terrain - URP Demo Scene
   packageVersion: 1.0.2
-  assetPath: Assets/TerrainDemoScene_URP/TextMeshPro/Fonts/LiberationSans - OFL.txt
+  assetPath: Assets/TerrainDemoScene_URP/TextMeshPro/Resources/Fonts & Materials/LiberationSans
+    SDF - Outline.mat
   uploadId: 531585
