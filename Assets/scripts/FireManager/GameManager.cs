@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // Required for scene management
 
 public class GameManager : MonoBehaviour
 {
@@ -10,30 +9,18 @@ public class GameManager : MonoBehaviour
     public int totalFires = 0; // Total number of active fires
     private bool gameOver = false; // Game over flag
 
-    public GameObject gameOverUI; // Reference to Game Over UI panel
-    public float delayBeforeMainMenu = 3f; // Delay before loading the MainMenu scene
-
     void Start()
     {
-         Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
         // Initialize the slider's max value and starting value
         if (oxygenSlider != null)
         {
             oxygenSlider.maxValue = oxygenLevel;
             oxygenSlider.value = oxygenLevel;
         }
-
-        // Ensure Game Over UI is initially disabled
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(false);
-        }
     }
 
     void Update()
     {
-       
         if (gameOver) return;
 
         if (totalFires > 0)
@@ -53,11 +40,6 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
-         if (Input.GetKeyDown(KeyCode.Escape)) // Escape key toggles cursor
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
     }
 
     public void FireExtinguished()
@@ -79,19 +61,6 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         Debug.Log("Game Over! Oxygen depleted.");
-
-        // Display Game Over UI
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(true);
-        }
-
-        // Delay and then load the MainMenu scene
-        Invoke(nameof(LoadMainMenu), delayBeforeMainMenu);
-    }
-
-    private void LoadMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        // Implement additional game-over logic here (e.g., display game-over UI)
     }
 }

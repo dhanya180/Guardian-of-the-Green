@@ -44,32 +44,12 @@ public class FireBehavior : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // Check if the fire pipe model is equipped (using tag or other condition)
-        if (!isExtinguishing && IsFirePipeEquipped())
+        if (!isExtinguishing)
         {
             isExtinguishing = true;
             Debug.Log("Fire clicked. Starting extinguishing process.");
             StartCoroutine(ExtinguishFireAndChangeLeaves());
         }
-        else
-        {
-            Debug.Log("Fire pipe is not equipped, cannot extinguish fire.");
-        }
-    }
-
-    private bool IsFirePipeEquipped()
-    {
-        // Check if the equipped item is the fire pipe
-        // For example, check if the player has the fire pipe model attached or a specific tag is present
-        // Here we check if an object with the "FirePipe" tag is equipped
-        GameObject equippedFirePipe = GameObject.FindGameObjectWithTag("FirePipe");
-
-        if (equippedFirePipe != null)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     private IEnumerator ExtinguishFireAndChangeLeaves()
@@ -138,7 +118,7 @@ public class FireBehavior : MonoBehaviour
         }
 
         // Destroy fire object after smoke effect
-       // Destroy(gameObject);
+        Destroy(gameObject);
         Debug.Log("Fire destroyed.");
     }
 }
