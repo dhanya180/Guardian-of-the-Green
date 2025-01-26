@@ -52,55 +52,61 @@ string fileName ="SaveGame";
     public void SaveGame(int slotNumber)
     {
        AllGameData data = new AllGameData();
-      // data.playerData = GetPlayerData();
-    //data.EnvironmentData = GetEnvironmentData();
+       data.playerData = GetPlayerData();
+    data.environmentData = GetEnvironmentData();
+    data.dayNumber=GetDayNumber();
 
        SavingTypeSwitch(data,slotNumber);
     }
 
 
-//     private EnvironmentData GetEnvironmentData()
-//     {
-//         List<string> itemsPickedup = InventorySystem.Instance.itemsPickedup;
-//         return new EnvironmentData(itemsPickedup);
-//     }
+    private EnvironmentData GetEnvironmentData()
+    {
+        List<string> itemsPickedup = InventorySystem.Instance.itemsPickedup;
+        return new EnvironmentData(itemsPickedup);
+    }
 
 
-    // private PlayerData GetPlayerData()
-    // {
-    //    float[] playerStats = new float[3];
-    //    playerStats[0] = PlayerState.Instance.currentHealth;
-    //    playerStats[1] = PlayerState.Instance.currentCalories; 
-    //    playerStats[2] = PlayerState.Instance.currentHydrationPercent ;
+    private PlayerData GetPlayerData()
+    {
+       float[] playerStats = new float[3];
+       playerStats[0] = PlayerState.Instance.currentHealth;
+       playerStats[1] = PlayerState.Instance.currentCalories; 
+       playerStats[2] = PlayerState.Instance.currentHydrationPercent ;
 
-    //    float[] playerPosAndRot = new float[6];
-    //   playerPosAndRot[0] = PlayerState.Instance.playerBody.transorm.position.x;
-    //   playerPosAndRot[1] = PlayerState.Instance.playerBody.transorm.position.y;
-    //   playerPosAndRot[2] = PlayerState.Instance.playerBody.transorm.position.z;
-    //   playerPosAndRot[3] = PlayerState.Instance.playerBody.transorm.Rotation.x;
-    //   playerPosAndRot[4] = PlayerState.Instance.playerBody.transorm.Rotation.y;
-    //   playerPosAndRot[5] = PlayerState.Instance.playerBody.transorm.Rotation.z;
-    //     string[] inventory = InventorySystem.Instance.itemList.ToArray();
-    //     string[] quickSlots = GetQuickSlotsContents();
-    //     return new PlayerData(playerStats,playerPosAndRot,inventory,quickSlots);
-    // }
+       float[] playerPosAndRot = new float[6];
+      playerPosAndRot[0] = PlayerState.Instance.playerBody.transform.position.x;
+      playerPosAndRot[1] = PlayerState.Instance.playerBody.transform.position.y;
+      playerPosAndRot[2] = PlayerState.Instance.playerBody.transform.position.z;
+      playerPosAndRot[3] = PlayerState.Instance.playerBody.transform.rotation.x;
+      playerPosAndRot[4] = PlayerState.Instance.playerBody.transform.rotation.y;
+      playerPosAndRot[5] = PlayerState.Instance.playerBody.transform.rotation.z;
+        string[] inventory = InventorySystem.Instance.itemList.ToArray();
+        string[] quickSlots = GetQuickSlotContents();
+        return new PlayerData(playerStats,playerPosAndRot,inventory,quickSlots);
+    }
 
-//     private string[] GetQuickSlotContents()
-//     {
-//         List<string> temp = new List<string>();
-// //uncomment this out
-//         // foreach(GameObject slot in EquipSystem.Instance.quickSlotsList)
-//         // {
-//         //     if(slot.transform.childCount !=0)
-//         //     {
-//         //         string name =slot.transform.GetChild(0).name;
-//         //         string str2 = "(Clone)";
-//         //         string cleanName =  name.Replace(str2,"");
-//         //         temp.Add(cleanName);
-//         //     }
-//         // }
-//         return temp.ToArray();
-//     }
+    private string[] GetQuickSlotContents()
+    {
+        List<string> temp = new List<string>();
+//uncomment this out
+        foreach(GameObject slot in EquipSystem.Instance.quickSlotsList)
+        {
+            if(slot.transform.childCount !=0)
+            {
+                string name =slot.transform.GetChild(0).name;
+                string str2 = "(Clone)";
+                string cleanName =  name.Replace(str2,"");
+                temp.Add(cleanName);
+            }
+        }
+        return temp.ToArray();
+    }
+
+    private int GetDayNumber()
+    {
+        return TimeManager.Instance.dayInGame;
+    }
 
     public void SavingTypeSwitch(AllGameData gameData,int slotNumber)
     {
@@ -135,6 +141,7 @@ string fileName ="SaveGame";
     {
         SetPlayerData(LoadingTypeSwitch(slotNumber).playerData);
         SetEnvironmentData(LoadingTypeSwitch(slotNumber).environmentData);
+        SetDayNumber(LoadingTypeSwitch(slotNumber).dayNumber);
         isLoading=false;
 
         DisabledLoadingScreen();
@@ -159,38 +166,44 @@ string fileName ="SaveGame";
     private void SetPlayerData(PlayerData playerData)
     {
        
-        //    PlayerState.Instance.currentHealth=playerData.playerStats[0];
-        //PlayerState.Instance.currentCalories = playerData.playerStats[1];
-        //PlayerState.Instance.currentHydrationPercent= playerData.playerStats[2];
+        PlayerState.Instance.currentHealth=playerData.playerStats[0];
+        PlayerState.Instance.currentCalories = playerData.playerStats[1];
+        PlayerState.Instance.currentHydrationPercent= playerData.playerStats[2];
 
-        //Vector3 loadedPosition;
-        //loadedPosition.x = playerData.playerPositionAndRotation[0];
-        //loadedPosition.y = playerData.playerPositionAndRotation[1];
-        //loadedPosition.z = playerData.playerPositionAndRotation[2];
+        Vector3 loadedPosition;
+        loadedPosition.x = playerData.playerPositionAndRotation[0];
+        loadedPosition.y = playerData.playerPositionAndRotation[1];
+        loadedPosition.z = playerData.playerPositionAndRotation[2];
 
-        //PlayerState.Instance.playerBody.transform.position =loadedPosition;
-        //Vector3 loadedRotation;
-        //loadedRotation.x = playerData.playerPositionAndRotation[3];
-        //loadedRotation.y = playerData.playerPositionAndRotation[4];
-        //loadedRotation.z = playerData.playerPositionAndRotation[5];
+        PlayerState.Instance.playerBody.transform.position =loadedPosition;
+        Vector3 loadedRotation;
+        loadedRotation.x = playerData.playerPositionAndRotation[3];
+        loadedRotation.y = playerData.playerPositionAndRotation[4];
+        loadedRotation.z = playerData.playerPositionAndRotation[5];
 
-        //PlayerState.Instance.playerBody.transform.rotation =Quaternion.Euler(loadedRotation);
+        PlayerState.Instance.playerBody.transform.rotation =Quaternion.Euler(loadedRotation);
 
 
         /*Setting the inventory Content*/
 
-        // foreach(string item in playerData.inventoryContent)
-        // {
-        //     InventorySystem.Instance.AddToInventory(item);
-        // }
+        foreach(string item in playerData.inventoryContent)
+        {
+            InventorySystem.Instance.AddToInventory(item);
+        }
 
  
-        // foreach(string item in playerData.quickSlotsContent)
-        // {
-        //     GameObject availableSlot = EquipSystem.Instance.FindNextEmptySlot();
-        //     var itemToAdd = Instantiate(Resources.Load<GameObject>(item));
-        //     itemToAdd.transform.SetParent(availableSlot.transform,false);
-        // }
+        foreach(string item in playerData.quickSlotsContent)
+        {
+            GameObject availableSlot = EquipSystem.Instance.FindNextEmptySlot();
+            var itemToAdd = Instantiate(Resources.Load<GameObject>(item));
+            itemToAdd.transform.SetParent(availableSlot.transform,false);
+        }
+     }
+
+     private void SetDayNumber(int dayNumber)
+     {
+
+        int day=dayNumber;
      }
 
     public void StartLoadedGame(int slotNumber)
@@ -284,37 +297,37 @@ string fileName ="SaveGame";
     #region || ------- Settings Section -------||
 
     #region || --------volume settings -------||
-    // [System.Serializable]
-    // public class VolumeSettings
-    // {
-    //     public float music;
-    //     public float effects;
-    //     public float master;
-    // }
-    // public void SaveVolumeSettings(float _music, float _effects, float _master)
-    // {
+    [System.Serializable]
+    public class VolumeSettings
+    {
+        public float music;
+        public float effects;
+        public float master;
+    }
+    public void SaveVolumeSettings(float _music, float _effects, float _master)
+    {
 
-    //     VolumeSettings volumeSettings = new VolumeSettings()
-    //     {
-    //         music = _music,
-    //         effects = _effects,
-    //         master = _master
-    //     };
+        VolumeSettings volumeSettings = new VolumeSettings()
+        {
+            music = _music,
+            effects = _effects,
+            master = _master
+        };
 
-    //     PlayerPrefs.SetString("Volume", JsonUtility.ToJson(volumeSettings));
-    //     PlayerPrefs.Save();
-    //     print("Saved to PlayerPrefs");
-    // }
+        PlayerPrefs.SetString("Volume", JsonUtility.ToJson(volumeSettings));
+        PlayerPrefs.Save();
+        print("Saved to PlayerPrefs");
+    }
 
-    // public VolumeSettings LoadVolumeSettings()
-    // {
-    //     //VolumeSettings settings = JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
-    //     //return settings;
+    public VolumeSettings LoadVolumeSettings()
+    {
+        //VolumeSettings settings = JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
+        //return settings;
 
-    //     return JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
+        return JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
 
 
-    // }
+    }
     #endregion
 
 

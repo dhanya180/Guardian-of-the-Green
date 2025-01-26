@@ -24,6 +24,8 @@ public class SelectionManager : MonoBehaviour
 
     public bool handIsVisible;
 
+    public GameObject selectedSoil;
+
     private void Start()
     {
         onTarget = false;
@@ -132,8 +134,81 @@ public class SelectionManager : MonoBehaviour
                 interaction_Info_UI.SetActive(false);
                 handIsVisible = false;
             }
+
+            Soil soil = selectionTransform.GetComponent<Soil>();
+
+            if(soil && soil.playerInRange)
+            {
+                if(soil.isEmpty && EquipSystem.Instance.IsPlayerHoldingSeed())
+                {
+                    string seedName = EquipSystem.Instance.selectedItem.GetComponent<InventoryItem>().thisName;
+                    string onlyPlantName = seedName.Split(new string[] { "Seed"},StringSplitOptions.None)[0];
+
+                    interaction_text.text = "Plant"+  onlyPlantName;
+                    interaction_Info_UI.SetActive(true);
+
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        soil.PlantSeed();
+                        Destroy(EquipSystem.Instance.selectedItem);
+                        Destroy(EquipSystem.Instance.selectedItemModel);
+                    }
+
+                }
+                else if(soil.isEmpty)
+                {
+                    interaction_text.text="Soil";
+                    interaction_Info_UI.SetActive(true);
+                }
+                else
+                {
+                    if(EquipSystem.Instance.IsPlayerHoldingWateringCan())
+                    {
+                        if(soil.currentPlant.isWatered)
+                        {
+                            interaction_text.text=soil.plantName;
+                        interaction_Info_UI.SetActive(true);
+                        }
+                        else
+                        {
+                            interaction_text.text="Use Watering Can";
+                        interaction_Info_UI.SetActive(true);
+
+                        if(Input.GetMouseButtonDown(0))
+                        {
+                            soil.currentPlant.isWatered =true;
+                            soil.MakeSoilWatered();
+                        }
+                        }
+                    }
+                    else
+                    {
+                        interaction_text.text=soil.plantName;
+                        interaction_Info_UI.SetActive(true);
+                    }
+
+                }
+
+                selectedSoil = soil.gameObject;
+            }
+            else
+            {
+                if(selectedSoil != null)
+                {
+                    selectedSoil  =null;
+                }
+
+            }
+
+            if( !soil)
+            {
+                if(!interactable){
+                interaction_Info_UI.SetActive(false);
+                interaction_text.text ="";
+                }
+            }
         }
-        else
+       else
         {
             // Raycast did not hit any object
             onTarget = false;
