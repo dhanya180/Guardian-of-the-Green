@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 2e498d1c8094910479dc3e1b768306a4
 timeCreated: 1484171803
 licenseType: Pro
@@ -14,3 +15,12 @@ AssetOrigin:
   assetPath: Assets/TerrainDemoScene_URP/TextMeshPro/Resources/Fonts & Materials/LiberationSans
     SDF - Fallback.asset
   uploadId: 531585
+=======
+guid: 6aec088a46efad54d88a7c859a9c81c1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> Stashed changes
