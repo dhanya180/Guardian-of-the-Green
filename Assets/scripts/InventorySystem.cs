@@ -16,6 +16,7 @@ public class InventorySystem : MonoBehaviour
     public static InventorySystem Instance { get; private set; }
 
     public GameObject inventoryScreenUI;
+    public List<string> itemsPickedup = new List<string>();
 
     public List<GameObject> slotList = new List<GameObject>();
 
@@ -30,13 +31,13 @@ public class InventorySystem : MonoBehaviour
     //public bool isFull;
     public bool isOpen;
 
+
+    public TextMeshProUGUI currencyUI;
     //Pickup Popup
     public GameObject pickupAlert;
     public TextMeshProUGUI pickupName;
     public Image pickupImage;
-
-    
-
+    internal int currentCoins=100;
 
     private void Awake()
     {
@@ -93,12 +94,13 @@ public class InventorySystem : MonoBehaviour
             SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
 
             isOpen = true;
+            ReCalculateList();
 
         }
         else if (Input.GetKeyDown(KeyCode.I) && isOpen)
         {
             inventoryScreenUI.SetActive(false);
-            if (!CraftingSystem.instance.isOpen)
+            if (!CraftingSystem.instance.isOpen && !BuySystem.Instance.ShopKeeper.isTalkingWithPlayer)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -110,6 +112,22 @@ public class InventorySystem : MonoBehaviour
            
             isOpen = false;
         }
+        currencyUI.text = $"{currentCoins} Coins";
+    }
+
+    public void closeUI()
+    {
+        inventoryScreenUI.SetActive(false);
+        if(!CraftingSystem.instance.isOpen && !BuySystem.Instance.ShopKeeper.isTalkingWithPlayer)
+        {
+            Cursor.lockState=CursorLockMode.Locked;
+            Cursor.visible=false;
+
+            SelectionManager.Instance.EnableSelection();
+            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
+        }
+        isOpen= false;
+       
     }
 
     public void AddToInventory(string itemName)
@@ -214,6 +232,8 @@ public class InventorySystem : MonoBehaviour
         ReCalculateList();
         CraftingSystem.instance.RefreshNeededItems();
     }
+
+   
 
     public void ReCalculateList()
     {
