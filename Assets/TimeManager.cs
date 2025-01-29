@@ -37,15 +37,6 @@
 //         OnDayPass.Invoke();
 //     }
 
-//     //  public void TriggerNextDay(int day)
-//     // {
-//     //     dayInGame=day;
-//     //     dayInGame+=1;
-//     //     dayUI.text =$"Day:{dayIngame}";
-//     //     OnDayPass.Invoke();
-//     // }
-
-
 // }
 
 
@@ -189,6 +180,7 @@ public class TimeManager : MonoBehaviour
     public static TimeManager Instance { get; private set; }
     public TextMeshProUGUI dayUI; // Assign dynamically or in Inspector
     public int dayInGame = 1;
+    //public UnityEvent OnDayPass = new UnityEvent();
     public UnityEvent OnDayPass = new UnityEvent();
     private void Awake()
     {
@@ -249,8 +241,10 @@ public class TimeManager : MonoBehaviour
 
     public void TriggerNextDay()
     {
+
         dayInGame++;
         UpdateDayUI();
+        OnDayPass.Invoke();
     }
 
     public void SetDayNumber(int savedDay)

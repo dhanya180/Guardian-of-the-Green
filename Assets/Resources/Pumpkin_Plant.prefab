@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 33000012846238252}
   - component: {fileID: 23000010010219526}
   - component: {fileID: 64000011852758562}
-  - component: {fileID: 9188671729278102001}
-  - component: {fileID: 3350231559953640284}
-  - component: {fileID: -865707578273826774}
   m_Layer: 0
   m_Name: Pumpkin_Plant
   m_TagString: Untagged
@@ -112,52 +109,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
---- !u!225 &9188671729278102001
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010824186820}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!114 &3350231559953640284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010824186820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35436aec7deade4998fa728c139b954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-865707578273826774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010824186820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9acbdf117666eeb459c59b3e2eec2a7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrashable: 0
-  thisName: Pumpkin Plant
-  thisDescription: 
-  thisFunctionality: 
-  isConsumable: 0
-  healthEffect: 0
-  caloriesEffect: 0
-  hydrationEffect: 0
-  isEquippable: 1
-  isInsideQuickSlot: 0
-  isSelected: 0
-  amountInInventory: 1
-  sellingPrice: 0

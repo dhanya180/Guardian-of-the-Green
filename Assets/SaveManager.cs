@@ -1042,11 +1042,11 @@ string fileName ="SaveGame";
         }
      }
 
-    //  private void SetDayNumber(int dayNumber)
-    //  {
+     private void SetDayNumber(int dayNumber)
+     {
 
-    //     int day=dayNumber;
-    //  }
+        int day=dayNumber;
+     }
 
 //     private void SetDayNumber(int dayNumber)
 // {
@@ -1057,10 +1057,10 @@ string fileName ="SaveGame";
 //     TimeManager.Instance.dayUI.text = $"Day: {dayNumber}";
 // }
 
-private void SetDayNumber(int savedDay)
-{
-    TimeManager.Instance.SetDayNumber(savedDay);
-}
+// private void SetDayNumber(int savedDay)
+// {
+//     TimeManager.Instance.SetDayNumber(savedDay);
+// }
 
 
 

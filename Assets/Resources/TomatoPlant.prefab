@@ -644,7 +644,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 388986c9e8f85524db50964a7d9d5052, type: 2}
+  - {fileID: 2100000, guid: e292b51f6375349498f26d572faddc1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -748,8 +748,8 @@ MonoBehaviour:
   plantAge: 0
   ageForYoungModel: 1
   ageForMatureModel: 2
-  ageForFirstProduceBatch: 2
-  daysForNewProduce: 1
+  ageForFirstProduceBatch: 4
+  daysForNewProduce: 2
   daysRemainingForNewProduceCounter: 0
   isOneTimeHarvest: 0
   isWatered: 1
